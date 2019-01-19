@@ -1,7 +1,7 @@
-###iOS基础之Bundle详解   
+### iOS基础之Bundle详解   
 在iOS工程中，如果我们使用xib来编写视图的话，会经常用到Bundle.main.loadNibNamed的方法来加载视图。那么Bundle到底是什么呢？除了main bundle还有其他bundle？    
 这篇文章是对Bundle的讲解，主要说明Bundle的定义和特点，Bundle的内部结构以及Bundle的基本使用。
-####1 Bundle的定义和特点      
+#### 1 Bundle的定义和特点      
 Bundle是一个含有可执行的代码及代码所需资源，以特定标准的层次结构组合起来的文件夹。这里的可执行是指编译过后可直接运行的代码程序。一个典型的例子就是iOS程序打包后的ipa，我们解压ipa后会得到一个payload文件夹，进入文件夹之后会发现一个和ipa名称相同的.app文件加。这个.app文件夹就是一个Bundle。  
 系统如何识别Bundle呢？一般而言一个文件夹如果带着.app，.bundle，.framework，.plugin，.kext等等特定后缀，那么系统就认为是Bundle。如果使用Xcode创建项目的话，Xcode会提供相应的模板来生成正确的Bundle类型。  
 从上面的后缀我们也可以看出Bundle主要分为：  
@@ -12,8 +12,8 @@ Bundle是一个含有可执行的代码及代码所需资源，以特定标准�
 
 使用Bundle可以很方便的管理程序的文件内容，进行本地化设置、程序移动和运行等等。   
 
-####2 Bundle的内部结构    
-#####2.1 iOS Application Bundle的结构  
+#### 2 Bundle的内部结构    
+##### 2.1 iOS Application Bundle的结构  
 Application类型的bundle是很常见的，一般里面会包含一下几中类型的文件：  
 
 * Info.plist文件。每个程序中必须有这个文件，因为它包含了程序运行的配置信息，是系统运行程序的依据。  
@@ -46,7 +46,7 @@ Application类型的bundle是很常见的，一般里面会包含一下几中类
 
 Assets.car无法直接打开，可以使用工具 [cartool](https://github.com/steventroughtonsmith/cartool) 列出包含的所有文件名称。PkgInfo、签名信息和嵌入配置文件都是打包后生成的，是系统验证app的依据。  
   
-#####2.2 Framework Bundle结构  
+##### 2.2 Framework Bundle结构  
 Framework Bundle和app bundle的最大不同在于框架库有版本控制，因此必须包含版本列表和当前版本信息。  
 Framework的bundle结构如下：  
 
@@ -68,7 +68,7 @@ Framework的bundle结构如下：
 
 关于多语言本地化文件，是按照*language_region.lproj*的格式命名的，比如en_GB表明英语_英国，zh_Hans表示中文_中国大陆。  
   
-####3 Bundle的基本使用    
+#### 3 Bundle的基本使用    
 使用bundle主要都是围绕着定位资源路径而来的。包括：获取bundle及其信息（不管是main bundle还是其他bundle），获取资源路径（根据资源名称和类型定位），使用系统API直接获取资源（比如图片、音频、本地化字符串、context help，nibs，Info.plist内容等等），具体使用可以参考 [Class Bundle](https://developer.apple.com/documentation/foundation/bundle)文档，也可以参考我的[Demo](https://github.com/Justin-ZhengYi/BundelPathDemo)。    
 
 在磁盘上查找资源时，Bundle对象遵循特定的搜索模式。首先返回全局资源（即不在特定于语言的.lproj目录中的资源），然后返回特定于区域和语言的资源。此搜索模式表示捆绑包按以下顺序查找资源：
